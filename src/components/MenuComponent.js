@@ -48,14 +48,11 @@ class Menu extends Component {
             <div className="container" >
                 <div className="row">
                     {menu}
-                </div>
-                <div className="row">
                     {this.renderDish(this.state.SelectedDish)}
                 </div>
             </div>
             
         );
     }
-
 }
 export default Menu;
