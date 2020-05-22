@@ -8,17 +8,30 @@ export default class DishDetail extends Component {
         super(props);
     }
 
+    renderComments(Comments) {
+        
+        const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+        if (Comments == null) {
+            return (<div></div>);
+        }
+
+        else {
+            return (Comments.map((Comment) => {
+                
+                return (
+                    <div class ="list-unstyled"><p>{Comment.comment}</p><p>--  {Comment.author}, {monthNames[new Date(Comment.date).getMonth()]} {("0"+(new Date(Comment.date).getDate() + 1).toString()).substring(("0"+(new Date(Comment.date).getDate() + 1).toString()).length-2,("0"+(new Date(Comment.date).getDate() + 1).toString()).length)}, {new Date(Comment.date).getFullYear()} </p></div>
+                );
+            }));    
+        }
+    }
+
     render(){
         const dish = this.props.SelectedDish;
-        const Comments=this.props.SelectedDish.comments.map((Comment) => {
-            return (
-                <div><p>{Comment.comment}</p>-- <p>{Comment.author}, {Comment.date}</p></div>
-            );
         
-        });
         return(
             <div className="row">
-                <div className="col-12 col-md-5">
+                <div className="col-12 col-md-5 m-1">
                     <Card>
                         <CardImg width="100%" src= {dish.image} alt= {dish.name}/>
                         <CardBody>
@@ -29,12 +42,10 @@ export default class DishDetail extends Component {
                         </CardBody>
                     </Card>
                 </div>
-                <div className="col-12 col-md-5">
+                <div className="col-12 col-md-5 m-1">
                     <Card>
                         <CardTitle><h4>Comments</h4></CardTitle>
-                        <CardBody>
-                            {Comments}
-                        </CardBody>
+                        {this.renderComments(this.props.SelectedDish.comments)}
                     </Card>
                 </div> 
             </div>

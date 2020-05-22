@@ -19,7 +19,7 @@ class Menu extends Component {
     renderDish(dish) {
         if(dish!=null) {
             return(
-                <div className="col-12 col md-5 m-1">    
+                <div className="container">    
                     <DishDetail SelectedDish={this.state.SelectedDish}/>
                 </div>
             );
