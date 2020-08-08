@@ -28,7 +28,7 @@ class Header extends Component {
                             <img src="assets/images/logo.png" height="30" width="41" alt="Ristorante con Fusion"/>
                         </NavbarBrand>
                         <Collapse isOpen={this.state.isNavOpen} navbar>
-                            <Nav Navbar>
+                            <Nav navbar>
                                 <NavItem>
                                     <NavLink className="nav-link" to="/home">
                                         <span className="fa fa-home fa-lg"></span> Home
