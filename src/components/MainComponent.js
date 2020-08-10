@@ -12,8 +12,6 @@ import Contact from './ContactComponent';
 import {Switch, Redirect, Route} from 'react-router-dom';
 
 
-
-
 class Main extends Component {
 
   constructor(props) {
