@@ -16,6 +16,26 @@ class Contact extends Component {
             contactType: 'Tel.',
             message: ''
         };
+
+        this.handleInputChange = this.handleInputChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+        
+    }
+
+    handleInputChange(event) {
+        const target = event.target;
+        const value = target.type === 'checkbox' ? target.checked : target.value;
+        const name = target.name;
+    
+        this.setState({
+          [name]: value
+        });
+    }
+
+    handleSubmit(event) {
+        console.log('Current State is: ' + JSON.stringify(this.state));
+        alert('Current State is: ' + JSON.stringify(this.state));
+        event.preventDefault();
     }
 
     render() {
@@ -62,7 +82,7 @@ class Contact extends Component {
                         <h3>Send Us Your Feedback</h3>
                     </div>
                     <div className="col-12 col-md-9" >
-                        <Form>
+                        <Form onSubmit={this.handleSubmit}>
                             <FormGroup>
                                 <Label htmlFor ="firstname" md={2}>First Name</Label>
                                 <Col md={10}>
