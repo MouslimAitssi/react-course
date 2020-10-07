@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
-import { Navbar, NavbarBrand, Nav, NavbarToggler, Collapse, NavItem, Jumbotron,
-    Button, Modal, ModalHeader, ModalBody,
-    Form, FormGroup, Input, Label } from 'reactstrap';
+import { Navbar, NavbarBrand, Nav, NavbarToggler, Collapse, NavItem, Jumbotron, Button, Modal, ModalHeader, 
+    ModalBody, Form, FormGroup, Input, Label } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
 
 class Header extends Component {
@@ -16,7 +15,6 @@ class Header extends Component {
         this.toggleModal = this.toggleModal.bind(this);
         this.handleLogin = this.handleLogin.bind(this);
     }
-
 
     toggleNav() {
         this.setState({
@@ -37,7 +35,6 @@ class Header extends Component {
         event.preventDefault();
 
     }
-      
 
     render() {
         return (
@@ -121,7 +118,6 @@ class Header extends Component {
             </React.Fragment>
         );
     }
-
 
 }
 export default Header;
