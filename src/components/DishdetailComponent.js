@@ -41,7 +41,6 @@ import CommentForm from './CommentFormComponent';
 
         render() {
             if(this.props.dish !=null) {
-                console.log(this.props.dish);
                 return(
                     <div className="container">
                         <div className="row">
@@ -79,8 +78,6 @@ import CommentForm from './CommentFormComponent';
         }
     }
 
-
-    
     function RenderDish({dish}) {
         return(
             <div className="col-12 col-md-5 m-1">
