@@ -15,7 +15,6 @@ import CommentForm from './CommentFormComponent';
             }
             this.toggleNav = this.toggleNav.bind(this);
             this.toggleModal = this.toggleModal.bind(this);
-            this.handleSubmit = this.handleSubmit.bind(this);
             
         }
 
@@ -29,14 +28,6 @@ import CommentForm from './CommentFormComponent';
             this.setState({
               isModalOpen: !this.state.isModalOpen
             });
-        }
-    
-        handleSubmit(event) {
-            this.toggleModal();
-            alert("Username: " + this.username.value + " Password: " + this.password.value
-                + " Remember: " + this.remember.checked);
-            event.preventDefault();
-    
         }
 
         render() {
