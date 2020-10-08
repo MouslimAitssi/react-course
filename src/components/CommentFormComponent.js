@@ -9,24 +9,13 @@ const minLength = (len) => (val) => val && (val.length >= len);
 
 export default class CommentForm extends Component {
 
-    constructor(props) {
-        super(props);
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
-
-    handleSubmit(values) {
-        alert('Current State is: ' + JSON.stringify(values));
-        //event.preventDefault();
-
-    }
-
     render() {
 
         return (
                 <Modal isOpen={this.props.isOpen} toggle = {this.props.toggle}>
                     <ModalHeader toggle={this.props.toggle}>Submit Comment</ModalHeader>
                     <ModalBody>
-                    <LocalForm onSubmit={(values) => this.handleSubmit(values)}>
+                    <LocalForm onSubmit={(values) => this.props.handleSubmit(values)}>
                             <FormGroup>
                                 <Label htmlFor="rating">Rating</Label>
                                     <Control.select defaultValue="1" model=".rating" id="rating" name="rating" 
@@ -64,16 +53,14 @@ export default class CommentForm extends Component {
                                         className="form-control"
                                         validators={{
                                             required, minLength: minLength(3), maxLength: maxLength(15)
-                                        }}
-                                        />
+                                        }} />
                                     <Errors
                                         className="text-danger"
                                         model=".comment"
                                         show="touched"
                                         messages={{
                                             required: 'Required'
-                                        }}
-                                     />
+                                        }} />
                             </FormGroup>
                             
                             <Button type="submit" value="submit" color="primary">Submit</Button>

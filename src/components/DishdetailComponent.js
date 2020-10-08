@@ -15,6 +15,7 @@ import CommentForm from './CommentFormComponent';
             }
             this.toggleNav = this.toggleNav.bind(this);
             this.toggleModal = this.toggleModal.bind(this);
+            this.handleSubmit = this.handleSubmit.bind(this);
             
         }
 
@@ -28,6 +29,13 @@ import CommentForm from './CommentFormComponent';
             this.setState({
               isModalOpen: !this.state.isModalOpen
             });
+        }
+
+
+        handleSubmit(values) {
+            this.toggleModal();
+            this.props.addComment(this.props.dish.id, values.rating, values.author, values.comment);
+            console.log("reached");
         }
 
         render() {
@@ -49,10 +57,14 @@ import CommentForm from './CommentFormComponent';
                             <div className="col-12 col-md-5 m-1">
                                 <Card>
                                     <CardTitle><h4>Comments</h4></CardTitle>
-                                    <RenderComments Comments = {this.props.comments} />
+                                    <RenderComments comments={this.props.comments}
+                                        addComment={this.props.addComment}
+                                        dishId={this.props.dish.id} 
+                                        isOpen={this.state.isModalOpen}
+                                        toggle={this.toggleModal}
+                                        handleSubmit={this.handleSubmit} />
                                     <div>
                                         <Button outline onClick={this.toggleModal}> <span className="fa fa-pencil fa-lg"></span> Submit Comment</Button>
-                                        <CommentForm isOpen={this.state.isModalOpen} toggle={this.toggleModal}/>
                                     </div>
                                 </Card>
                             </div>
@@ -85,26 +97,33 @@ import CommentForm from './CommentFormComponent';
         )
     }
 
-    function RenderComments({Comments}) {
+    function RenderComments({comments, addComment, dishId, isOpen, toggle, handleSubmit}) {
         
         const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
         
-        if (Comments == null) {
+        if (comments == null) {
             return (<div></div>);
         }
 
         else {
             return (
 
-                Comments.map((Comment) => {
-                    return (         
-                        <div class ="list-unstyled"><p>{Comment.comment}</p><p>--  {Comment.author}, {monthNames[new Date(Comment.date).getMonth()]} {("0"+(new Date(Comment.date).getDate() + 1).toString()).substring(("0"+(new Date(Comment.date).getDate() + 1).toString()).length-2,("0"+(new Date(Comment.date).getDate() + 1).toString()).length)}, {new Date(Comment.date).getFullYear()} </p></div>
-                    );
-                }
+                
+                <div>
+                    
+                    {comments.map((Comment) => {
+                        return (         
+                            <div class ="list-unstyled"><p>{Comment.comment}</p><p>--  {Comment.author}, {monthNames[new Date(Comment.date).getMonth()]} {("0"+(new Date(Comment.date).getDate() + 1).toString()).substring(("0"+(new Date(Comment.date).getDate() + 1).toString()).length-2,("0"+(new Date(Comment.date).getDate() + 1).toString()).length)}, {new Date(Comment.date).getFullYear()} </p></div>
+                        );
+                    })}
+                    <CommentForm dishId={dishId} addComment={addComment} isOpen = {isOpen} toggle={toggle} handleSubmit={handleSubmit}/>
+
+                </div>
             
-            ));    
-        }
+            )
+        };    
     }
+    
 
 
 export default DishDetail;
