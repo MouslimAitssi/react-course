@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Card, CardImg, CardTitle, CardBody, CardText , BreadcrumbItem, Breadcrumb, Button} from "reactstrap";
 import {Link} from 'react-router-dom';
+import { Loading } from './LoadingComponent';
 
 import CommentForm from './CommentFormComponent';
 
@@ -39,6 +40,25 @@ import CommentForm from './CommentFormComponent';
         }
 
         render() {
+            if (this.props.isLoading) {
+                return(
+                    <div className="container">
+                        <div className="row">            
+                            <Loading />
+                        </div>
+                    </div>
+                );
+            }
+            else if (this.props.errMess) {
+                return(
+                    <div className="container">
+                        <div className="row">            
+                            <h4>{this.props.errMess}</h4>
+                        </div>
+                    </div>
+                );
+            }
+            else if (this.props.dish != null)
             if(this.props.dish !=null) {
                 return(
                     <div className="container">
@@ -108,9 +128,7 @@ import CommentForm from './CommentFormComponent';
         else {
             return (
 
-                
                 <div>
-                    
                     {comments.map((Comment) => {
                         return (         
                             <div class ="list-unstyled"><p>{Comment.comment}</p><p>--  {Comment.author}, {monthNames[new Date(Comment.date).getMonth()]} {("0"+(new Date(Comment.date).getDate() + 1).toString()).substring(("0"+(new Date(Comment.date).getDate() + 1).toString()).length-2,("0"+(new Date(Comment.date).getDate() + 1).toString()).length)}, {new Date(Comment.date).getFullYear()} </p></div>
@@ -123,7 +141,5 @@ import CommentForm from './CommentFormComponent';
             )
         };    
     }
-    
-
 
 export default DishDetail;
