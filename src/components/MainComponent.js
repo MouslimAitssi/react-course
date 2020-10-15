@@ -11,12 +11,13 @@ import { connect } from 'react-redux';
 import { actions } from 'react-redux-form';
 import { addComment, fetchDishes, fetchComments, fetchPromos } from '../redux/ActionCreators';
 
+
 const mapDispatchToProps = dispatch => ({
   addComment: (dishId, rating, author, comment) => dispatch(addComment(dishId, rating, author, comment)),
   fetchDishes: () => { dispatch(fetchDishes())},
-  fetchComments: () => { dispatch(fetchComments())},
-  fetchPromos: () => { dispatch(fetchPromos())},
-  resetFeedbackForm: () => { dispatch(actions.reset('feedback'))}
+  resetFeedbackForm: () => { dispatch(actions.reset('feedback'))},
+  fetchComments: () => dispatch(fetchComments()),
+  fetchPromos: () => dispatch(fetchPromos())
 });
 
 
@@ -49,7 +50,6 @@ class Main extends Component {
   }
   
   render() {
-
     const HomePage = () => {
       return(
         <Home 
@@ -75,7 +75,6 @@ class Main extends Component {
         />
       );
     };
-
 
     const AboutPage = () => {
       return (
