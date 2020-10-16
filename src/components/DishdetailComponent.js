@@ -36,8 +36,8 @@ import CommentForm from './CommentFormComponent';
 
         handleSubmit(values) {
             this.toggleModal();
-            this.props.addComment(this.props.dish.id, values.rating, values.author, values.comment);
-            console.log("reached");
+            this.props.postComment(this.props.dish.id, values.rating, values.author, values.comment);
+            
         }
 
         render() {
@@ -79,7 +79,7 @@ import CommentForm from './CommentFormComponent';
                                 <Card>
                                     <CardTitle><h4>Comments</h4></CardTitle>
                                     <RenderComments comments={this.props.comments}
-                                        addComment={this.props.addComment}
+                                        postComment={this.props.postComment}
                                         dishId={this.props.dish.id} 
                                         isOpen={this.state.isModalOpen}
                                         toggle={this.toggleModal}
@@ -118,7 +118,7 @@ import CommentForm from './CommentFormComponent';
         )
     }
 
-    function RenderComments({comments, addComment, dishId, isOpen, toggle, handleSubmit}) {
+    function RenderComments({comments, postComment, dishId, isOpen, toggle, handleSubmit}) {
         
         const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
         
@@ -135,7 +135,7 @@ import CommentForm from './CommentFormComponent';
                             <div class ="list-unstyled"><p>{Comment.comment}</p><p>--  {Comment.author}, {monthNames[new Date(Comment.date).getMonth()]} {("0"+(new Date(Comment.date).getDate() + 1).toString()).substring(("0"+(new Date(Comment.date).getDate() + 1).toString()).length-2,("0"+(new Date(Comment.date).getDate() + 1).toString()).length)}, {new Date(Comment.date).getFullYear()} </p></div>
                         );
                     })}
-                    <CommentForm dishId={dishId} addComment={addComment} isOpen = {isOpen} toggle={toggle} handleSubmit={handleSubmit}/>
+                    <CommentForm dishId={dishId} postComment={postComment} isOpen = {isOpen} toggle={toggle} handleSubmit={handleSubmit}/>
 
                 </div>
             
