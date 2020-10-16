@@ -3,6 +3,7 @@ import { Card, CardImg, CardTitle, CardBody, CardText , BreadcrumbItem, Breadcru
 import { Link } from 'react-router-dom';
 import { Loading } from './LoadingComponent';
 import { baseUrl } from '../shared/baseUrl';
+import { FadeTransform, Fade, Stagger } from 'react-animation-components'; 
 
 import CommentForm from './CommentFormComponent';
 
@@ -105,23 +106,23 @@ import CommentForm from './CommentFormComponent';
     function RenderDish({dish}) {
         return(
             <div className="col-12 col-md-5 m-1">
-                <Card>
-                    <CardImg top src={baseUrl + dish.image} alt={dish.name} />
-                    <CardBody>
-                        <CardTitle>{dish.name}</CardTitle>
-                        <CardText>
-                            {dish.description}
-                        </CardText>
-                    </CardBody>
-                </Card>
+                <FadeTransform in transformProps={{ exitTransform: 'scale(0.5) translateY(-50%)'}}>
+                    <Card>
+                        <CardImg top src={baseUrl + dish.image} alt={dish.name} />
+                        <CardBody>
+                            <CardTitle>{dish.name}</CardTitle>
+                            <CardText>
+                                {dish.description}
+                            </CardText>
+                        </CardBody>
+                    </Card>
+                </FadeTransform>
             </div>
         )
     }
 
     function RenderComments({comments, postComment, dishId, isOpen, toggle, handleSubmit}) {
-        
-        const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-        
+
         if (comments == null) {
             return (<div></div>);
         }
@@ -130,13 +131,19 @@ import CommentForm from './CommentFormComponent';
             return (
 
                 <div>
-                    {comments.map((Comment) => {
-                        return (         
-                            <div class ="list-unstyled"><p>{Comment.comment}</p><p>--  {Comment.author}, {monthNames[new Date(Comment.date).getMonth()]} {("0"+(new Date(Comment.date).getDate() + 1).toString()).substring(("0"+(new Date(Comment.date).getDate() + 1).toString()).length-2,("0"+(new Date(Comment.date).getDate() + 1).toString()).length)}, {new Date(Comment.date).getFullYear()} </p></div>
-                        );
-                    })}
-                    <CommentForm dishId={dishId} postComment={postComment} isOpen = {isOpen} toggle={toggle} handleSubmit={handleSubmit}/>
-
+                    <Stagger in>
+                        {comments.map((Comment) => {
+                            return (         
+                                <Fade in>
+                                <li key={Comment.id}>
+                                    <p>{Comment.comment}</p>
+                                    <p>-- {Comment.author} , {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(Comment.date)))}</p>
+                                </li>
+                                </Fade>
+                            );
+                        })}
+                        <CommentForm dishId={dishId} postComment={postComment} isOpen = {isOpen} toggle={toggle} handleSubmit={handleSubmit}/>
+                    </Stagger>
                 </div>
             
             )
