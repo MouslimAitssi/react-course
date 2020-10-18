@@ -13,7 +13,6 @@ import { baseUrl } from '../shared/baseUrl';
                         <CardTitle>{dish.name}</CardTitle>
                     </CardImgOverlay>
                 </Link>
-                
             </Card>
         )
     }
